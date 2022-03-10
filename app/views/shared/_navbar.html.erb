@@ -1,6 +1,18 @@
-<%if user_signed_in?%>
-  <span>Hello, <%=current_user.email%> </span>
-  <%=link_to "Log out", destroy_user_session_path, method: :delete%>
-<%else%>
-  <%= link_to "Log in", new_user_session_path%>
-<%end%>
+<nav class="navbar navbar-light navbar-expand-md sticky-top">
+  <div class="container-fluid">
+    <%=link_to "Toys-Is-Us", root_path, class: "navbar-brand"%>
+  </div>
+
+  <ul class="navbar-nav mr-5-lg">
+    <%if user_signed_in?%>
+      <li class="nav-item">
+        <%=link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link"%>
+      </li>
+    <%else%>
+      <li class="nav-item">
+        <%= link_to "Log in", new_user_session_path, class: "nav-link"%>
+      </li>
+    <%end%>
+  </ul>
+
+</nav>
