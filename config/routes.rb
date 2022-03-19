@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   get "listings/:id", to: "listings#show", as: "listing"
   put "listings/:id", to: "listings#update"
   patch "listings/:id", to: "listings#update"
+  delete "listings/:id", to: "listings#destroy"
   get "listings/:id/edit", to: "listings#edit", as: "edit_listing"
 end

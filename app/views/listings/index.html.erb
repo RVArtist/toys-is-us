@@ -4,7 +4,11 @@
         <%@listings.each do |listing|%>
         <div class="col mb-4">
           <div class="card border-dark h-100">
-          <%=image_tag "duck.jpg", class: "thumbnail card-img top", alt: "duck"%>
+            <%if listing.picture.attached?%>
+              <%=image_tag listing.picture, alt: listing.title, class:"thumbnail card-img top"%>
+            <%else%>
+              <%=image_tag "duck.jpg", alt: "rubber duck", class:"thumbnail card-img top"%>
+            <%end%>
             <div class="card-body">
               <h5><%=listing.title%></h5>
               <p class="card-text text-secondary"><%=listing.description%></p>
