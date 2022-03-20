@@ -12,5 +12,13 @@
     <h1 class='mb-sm-2 mb-md-5'><%=@listing.title%></h1>
     <h4 class='text-muted'>Condition: <%=format_condition(@listing.condition)%></h4>
     <h5 class='text-muted'>Price: <%=format_price(@listing.price)%></h5>
+    <div class='container'>
+    <%if current_user && current_user.id == @listing.user_id%>
+      <div class='d-flex justify-content-equally'>
+        <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-warning mr-2"%>
+        <%=link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"%>
+      </div>
+    <%end%>
+  </div>
   </div>
 </section>
