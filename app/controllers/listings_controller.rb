@@ -26,7 +26,7 @@ class ListingsController < ApplicationController
           listing_id: @listing.id
         }
       },
-      success_url: root_url,
+      success_url: "#{payment_success_url}",
       cancel_url: root_url
     )
 
@@ -44,7 +44,7 @@ class ListingsController < ApplicationController
     else
       pp @listing.errors
       set_form_vars
-      render "new", alert:"Sometihing went wrong"
+      render "new", alert:"Something went wrong"
     end
   end
 
