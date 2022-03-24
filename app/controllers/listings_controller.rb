@@ -8,7 +8,29 @@ class ListingsController < ApplicationController
   end
 
   def show
-    
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      customer_email:current_user && current_user.email,
+      line_items: [
+        {
+          name: @listing.title,
+          description: @listing.description,
+          amount: @listing.price,
+          currency: 'aud',
+          quantity: 1
+        }
+      ],
+      payment_intent_data: {
+        metadata: {
+          user_id: current_user && current_user.id,
+          listing_id: @listing.id
+        }
+      },
+      success_url: "#{payment_success_url}",
+      cancel_url: root_url
+    )
+
+    @session_id = session.id
   end
 
   def new
@@ -22,7 +44,7 @@ class ListingsController < ApplicationController
     else
       pp @listing.errors
       set_form_vars
-      render "new", alert:"Sometihing went wrong"
+      render "new", alert:"Something went wrong"
     end
   end
 
