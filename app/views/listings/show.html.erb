@@ -15,7 +15,14 @@
     <p><%=@listing.description%></p>
 
     <%if current_user && @listing.sold == false%>
-      <button class='btn btn-primary mb-3 pr-2' data-stripe="payment">Buy:<%=format_price(@listing.price)%> </button>
+      <%#button class='btn btn-primary mb-3 pr-2' data-stripe="payment">Buy:<%=format_price(@listing.price)%>
+      <%=button_to "Buy: #{format_price(@listing.price)}",
+      create_checkout_session_path,
+      remote: true,
+      method: :post,
+      params: {id: @listing.id},
+      class: 'btn btn-primary mb-3 pr-2',
+      data: {disable_with: "Loading..."}%>
     <%elsif @listing.sold%>
       <button class='btn btn-secondary' disabled>SOLD</button>
     <%else%>
@@ -31,17 +38,6 @@
   </div>
   </div>
 </section>
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-document
-  .querySelector("[data-stripe='payment']")
-  .addEventListener("click", () => {
-    const stripe = Stripe("<%=Rails.application.credentials.dig(:stripe, :public_key)%>")
-    stripe.redirectToCheckout({
-      sessionId: "<%=@session_id%>"
-    })
-  })
-  </script>
 
 
 
