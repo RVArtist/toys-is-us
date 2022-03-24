@@ -14,3 +14,11 @@ if Category.count == 0
     puts "cretaed #{c} category"
   end
 end
+
+features = ["educational", "require batteries", "waterproof", "Huggable", "interactive", "companion app", "vegan", "Wifi"]
+if Feature.count == 0
+  features.each do |f|
+    Feature.create(name: f)
+    puts "cretaed #{f} feature"
+  end
+end
